@@ -167,6 +167,32 @@
             #binding-cells = <2>;
             tapping-term-ms = <200>;
         };
+
+        homerow_left: homerow_left {
+            compatible = "zmk,behavior-hold-tap";
+            label = "HOMEROW_LEFT";
+            bindings = <&kp>, <&kp>;
+
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+            quick-tap-ms = <130>;
+            flavor = "tap-preferred";
+            hold-trigger-on-release;
+            hold-trigger-key-positions = <21 22 23 24>;
+        };
+
+        homerow_right: homerow_right {
+            compatible = "zmk,behavior-hold-tap";
+            label = "HOMEROW_RIGHT";
+            bindings = <&kp>, <&kp>;
+
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+            quick-tap-ms = <130>;
+            flavor = "tap-preferred";
+            hold-trigger-on-release;
+            hold-trigger-key-positions = <15 17 16 18>;
+        };
     };
 
     keymap {
@@ -174,28 +200,28 @@
 
         default_layer {
             bindings = <
-&mo 3  &mt RIGHT_BRACKET CAPSLOCK  &kp Q               &kp W           &kp E               &kp R             &kp T        &kp Y            &kp U              &kp I                &kp O               &kp P                    &mt_caps_word 0 LEFT_BRACKET  &mo 3
-       &mt GLOBE GRAVE             &mt LEFT_COMMAND A  &mt LEFT_ALT S  &mt LEFT_CONTROL D  &mt LEFT_SHIFT F  &kp G        &kp H            &mt RIGHT_SHIFT J  &mt RIGHT_CONTROL K  &mt LEFT_CONTROL L  &mt RIGHT_GUI SEMICOLON  &kp APOSTROPHE
-       &kp MINUS                   &kp Z               &kp X           &kp C               &kp V             &kp B        &kp N            &kp M              &kp COMMA            &kp DOT             &kp FSLH                 &kp BSLH
-                                                                       &lt 2 TAB           &kp SPACE         &lt 1 RET    &lt 1 BACKSPACE  &kp ESCAPE         &lt 2 DEL
+&mo 3  &mt RIGHT_BRACKET CAPSLOCK  &kp Q                         &kp W                     &kp E                         &kp R                       &kp T        &kp Y            &kp U                         &kp I                           &kp O                          &kp P                               &mt_caps_word 0 LEFT_BRACKET  &mo 3
+       &mt GLOBE GRAVE             &homerow_left LEFT_COMMAND A  &homerow_left LEFT_ALT S  &homerow_left LEFT_CONTROL D  &homerow_left LEFT_SHIFT F  &kp G        &kp H            &homerow_right RIGHT_SHIFT J  &homerow_right RIGHT_CONTROL K  &homerow_right LEFT_CONTROL L  &homerow_right RIGHT_GUI SEMICOLON  &kp APOSTROPHE
+       &kp MINUS                   &kp Z                         &kp X                     &kp C                         &kp V                       &kp B        &kp N            &kp M                         &kp COMMA                       &kp DOT                        &kp FSLH                            &kp BSLH
+                                                                                           &lt 2 TAB                     &kp SPACE                   &lt 1 RET    &lt 1 BACKSPACE  &kp ESCAPE                    &lt 2 DEL
             >;
         };
 
         lower_layer {
             bindings = <
-&trans  &kp KP_NUMLOCK  &kp SLASH           &kp N7                 &kp N8               &kp N9                   &kp AT_SIGN    &kp HASH   &kp LEFT_BRACKET                  &kp UNDERSCORE              &kp PIPE                &kp RIGHT_BRACKET                &kp PERCENT  &none
-        &kp STAR        &mt LEFT_GUI MINUS  &mt LEFT_ALT NUMBER_4  &mt LEFT_CONTROL N5  &mt LEFT_SHIFT NUMBER_6  &kp KP_PLUS    &kp EQUAL  &mt RIGHT_SHIFT LEFT_PARENTHESIS  &mt RIGHT_CONTROL ASTERISK  &mt LEFT_ALT AMPERSAND  &mt RIGHT_GUI RIGHT_PARENTHESIS  &kp CARET
-        &trans          &kp N0              &kp NUMBER_1           &kp NUMBER_2         &kp NUMBER_3             &kp KP_DOT     &kp EXCL   &kp LEFT_BRACE                    &kp LESS_THAN               &kp GREATER_THAN        &kp RIGHT_BRACE                  &kp DOLLAR
-                                                                   &lt 4 TAB            &trans                   &trans         &trans     &trans                            &lt 4 DEL
+&trans  &kp KP_NUMLOCK  &kp SLASH                     &kp N7                           &kp N8                         &kp N9                             &kp AT_SIGN    &kp HASH   &kp LEFT_BRACKET                             &kp UNDERSCORE                         &kp PIPE                           &kp RIGHT_BRACKET                           &kp PERCENT  &none
+        &kp STAR        &homerow_left LEFT_GUI MINUS  &homerow_left LEFT_ALT NUMBER_4  &homerow_left LEFT_CONTROL N5  &homerow_left LEFT_SHIFT NUMBER_6  &kp KP_PLUS    &kp EQUAL  &homerow_right RIGHT_SHIFT LEFT_PARENTHESIS  &homerow_right RIGHT_CONTROL ASTERISK  &homerow_right LEFT_ALT AMPERSAND  &homerow_right RIGHT_GUI RIGHT_PARENTHESIS  &kp CARET
+        &trans          &kp N0                        &kp NUMBER_1                     &kp NUMBER_2                   &kp NUMBER_3                       &kp KP_DOT     &kp EXCL   &kp LEFT_BRACE                               &kp LESS_THAN                          &kp GREATER_THAN                   &kp RIGHT_BRACE                             &kp DOLLAR
+                                                                                       &lt 4 TAB                      &trans                             &trans         &trans     &trans                                       &lt 4 DEL
             >;
         };
 
         raise_layer {
             bindings = <
-&trans  &trans  &none         &kp F7           &kp F8               &kp F9             &kp F10      &kp C_VOL_UP     &kp HOME                    &kp PSCRN                   &kp PG_UP           &kp SLCK           &none  &none
-        &trans  &kp LEFT_GUI  &mt LEFT_ALT F4  &mt LEFT_CONTROL F5  &mt LEFT_SHIFT F6  &kp F11      &kp C_MUTE       &mt RIGHT_SHIFT LEFT_ARROW  &mt RIGHT_CONTROL UP_ARROW  &mt LEFT_ALT RIGHT  &mt RIGHT_GUI INS  &none
-        &trans  &none         &kp F1           &kp F2               &kp F3             &kp F12      &kp C_VOL_DN     &kp END                     &kp DOWN                    &kp PG_DN           &kp PAUSE_BREAK    &none
-                                               &trans               &trans             &lt 4 RET    &lt 4 BACKSPACE  &trans                      &trans
+&trans  &trans  &none         &kp F7                     &kp F8                         &kp F9                       &kp F10      &kp C_VOL_UP     &kp HOME                               &kp PSCRN                              &kp PG_UP                      &kp SLCK                      &none  &none
+        &trans  &kp LEFT_GUI  &homerow_left LEFT_ALT F4  &homerow_left LEFT_CONTROL F5  &homerow_left LEFT_SHIFT F6  &kp F11      &kp C_MUTE       &homerow_right RIGHT_SHIFT LEFT_ARROW  &homerow_right RIGHT_CONTROL UP_ARROW  &homerow_right LEFT_ALT RIGHT  &homerow_right RIGHT_GUI INS  &none
+        &trans  &none         &kp F1                     &kp F2                         &kp F3                       &kp F12      &kp C_VOL_DN     &kp END                                &kp DOWN                               &kp PG_DN                      &kp PAUSE_BREAK               &none
+                                                         &trans                         &trans                       &lt 4 RET    &lt 4 BACKSPACE  &trans                                 &trans
             >;
         };
 
