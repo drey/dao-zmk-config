@@ -27,118 +27,6 @@
 
 / {
     macros {
-        moom: moom {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings =
-                <&macro_press>,
-                <&kp RGUI &kp RALT &kp DOT>,
-                <&macro_release>,
-                <&kp RGUI &kp RALT &kp DOT>;
-
-            label = "MOOM";
-        };
-
-        moom_left_half: moom_left_half {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings =
-                <&moom>,
-                <&macro_wait_time 50>,
-                <&macro_press>,
-                <&kp LEFT_WIN &kp LEFT_ARROW>,
-                <&macro_release>,
-                <&kp LEFT_WIN &kp LEFT_ARROW>;
-
-            label = "MOOM_LEFT_HALF";
-        };
-
-        moom_right_half: moom_right_half {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings =
-                <&moom>,
-                <&macro_wait_time 50>,
-                <&macro_press>,
-                <&kp LEFT_WIN &kp RIGHT_ARROW>,
-                <&macro_release>,
-                <&kp LEFT_WIN &kp RIGHT_ARROW>;
-
-            label = "MOOM_RIGHT_HALF";
-        };
-
-        moom_top_half: moom_top_half {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings =
-                <&moom>,
-                <&macro_wait_time 50>,
-                <&macro_press>,
-                <&kp LEFT_WIN &kp UP_ARROW>,
-                <&macro_release>,
-                <&kp LEFT_WIN &kp UP_ARROW>;
-
-            label = "MOOM_TOP_HALF";
-        };
-
-        moom_bottom_half: moom_bottom_half {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings =
-                <&moom>,
-                <&macro_wait_time 50>,
-                <&macro_press>,
-                <&kp LEFT_WIN &kp DOWN_ARROW>,
-                <&macro_release>,
-                <&kp LEFT_WIN &kp DOWN_ARROW>;
-
-            label = "MOOM_BOTTOM_HALF";
-        };
-
-        moom_shrink: moom_shrink {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&moom>, <&macro_wait_time 50>, <&macro_tap>, <&kp F8>;
-
-            label = "MOOM_SHRINK";
-        };
-
-        moom_revert: moom_revert {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&moom>, <&macro_wait_time 50>, <&macro_tap>, <&kp F6>;
-
-            label = "MOOM_REVERT";
-        };
-
-        moom_left: moom_left {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&moom>, <&macro_wait_time 50>, <&macro_tap>, <&kp F7>;
-
-            label = "MOOM_LEFT";
-        };
-
-        moom_right: moom_right {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&moom>, <&macro_wait_time 50>, <&macro_tap>, <&kp F9>;
-
-            label = "MOOM_RIGHT";
-        };
-
-        snagit: snagit {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings =
-                <&macro_press>,
-                <&kp RGUI &kp F13>,
-                <&macro_release>,
-                <&kp RGUI &kp F13>;
-
-            label = "SNAGIT";
-        };
-
         lock_sceen: lock_sceen {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
@@ -256,13 +144,6 @@
             timeout-ms = <50>;
         };
 
-        change_layout {
-            bindings = <&change_layout>;
-            key-positions = <18 17>;
-            layers = <0>;
-            timeout-ms = <50>;
-        };
-
         double_shift {
             bindings = <&double_shift>;
             key-positions = <39 42>;
@@ -277,42 +158,62 @@
         };
     };
 
+    behaviors {
+        mt_caps_word: mt_caps_word {
+            compatible = "zmk,behavior-hold-tap";
+            label = "MT_CAPS_WORD";
+            bindings = <&caps_word>, <&kp>;
+
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
         default_layer {
             bindings = <
-&mo 3  &mt RIGHT_BRACKET CAPSLOCK  &kp Q               &kp W           &kp E               &kp R             &kp T          &kp Y              &kp U              &kp I                &kp O               &kp P                    &kp LBKT        &mo 3
-       &kp GRAVE                   &mt LEFT_COMMAND A  &mt LEFT_ALT S  &mt LEFT_CONTROL D  &mt LEFT_SHIFT F  &kp G          &kp H              &mt RIGHT_SHIFT J  &mt RIGHT_CONTROL K  &mt LEFT_CONTROL L  &mt RIGHT_GUI SEMICOLON  &kp APOSTROPHE
-       &kp MINUS                   &kp Z               &kp X           &kp C               &kp V             &kp B          &kp N              &kp M              &kp COMMA            &kp DOT             &kp FSLH                 &kp BSLH
-                                                                       &lt RSE TAB         &kp SPACE         &lt LWR RET    &lt LWR BACKSPACE  &kp ESCAPE         &lt RSE DEL
+&mo 3  &mt RIGHT_BRACKET CAPSLOCK  &kp Q               &kp W           &kp E               &kp R             &kp T        &kp Y            &kp U              &kp I                &kp O               &kp P                    &mt_caps_word 0 LEFT_BRACKET  &mo 3
+       &mt GLOBE GRAVE             &mt LEFT_COMMAND A  &mt LEFT_ALT S  &mt LEFT_CONTROL D  &mt LEFT_SHIFT F  &kp G        &kp H            &mt RIGHT_SHIFT J  &mt RIGHT_CONTROL K  &mt LEFT_CONTROL L  &mt RIGHT_GUI SEMICOLON  &kp APOSTROPHE
+       &kp MINUS                   &kp Z               &kp X           &kp C               &kp V             &kp B        &kp N            &kp M              &kp COMMA            &kp DOT             &kp FSLH                 &kp BSLH
+                                                                       &lt 2 TAB           &kp SPACE         &lt 1 RET    &lt 1 BACKSPACE  &kp ESCAPE         &lt 2 DEL
             >;
         };
 
         lower_layer {
             bindings = <
-&trans  &kp KP_NUMLOCK     &kp SLASH  &kp KP_N7  &kp KP_N8    &kp KP_N9  &kp AT_SIGN    &kp HASH   &kp LEFT_BRACKET      &kp UNDERSCORE   &kp PIPE          &kp RIGHT_BRACKET      &kp PERCENT          &kp RWIN
-        &mt LEFT_ALT STAR  &kp MINUS  &kp KP_N4  &kp KP_N5    &kp KP_N6  &kp KP_PLUS    &kp EQUAL  &kp LEFT_PARENTHESIS  &kp KP_ASTERISK  &kp AMPERSAND     &kp RIGHT_PARENTHESIS  &mt RIGHT_ALT CARET
-        &trans             &kp KP_N0  &kp KP_N1  &kp KP_N2    &kp KP_N3  &kp KP_DOT     &kp EXCL   &kp LEFT_BRACE        &kp LESS_THAN    &kp GREATER_THAN  &kp RIGHT_BRACE        &mt RCTRL DOLLAR
-                                                 &lt ADJ TAB  &trans     &trans         &trans     &trans                &lt ADJ DEL
+&trans  &kp KP_NUMLOCK  &kp SLASH           &kp N7                 &kp N8               &kp N9                   &kp AT_SIGN    &kp HASH   &kp LEFT_BRACKET                  &kp UNDERSCORE              &kp PIPE                &kp RIGHT_BRACKET                &kp PERCENT  &none
+        &kp STAR        &mt LEFT_GUI MINUS  &mt LEFT_ALT NUMBER_4  &mt LEFT_CONTROL N5  &mt LEFT_SHIFT NUMBER_6  &kp KP_PLUS    &kp EQUAL  &mt RIGHT_SHIFT LEFT_PARENTHESIS  &mt RIGHT_CONTROL ASTERISK  &mt LEFT_ALT AMPERSAND  &mt RIGHT_GUI RIGHT_PARENTHESIS  &kp CARET
+        &trans          &kp N0              &kp NUMBER_1           &kp NUMBER_2         &kp NUMBER_3             &kp KP_DOT     &kp EXCL   &kp LEFT_BRACE                    &kp LESS_THAN               &kp GREATER_THAN        &kp RIGHT_BRACE                  &kp DOLLAR
+                                                                   &lt 4 TAB            &trans                   &trans         &trans     &trans                            &lt 4 DEL
             >;
         };
 
         raise_layer {
             bindings = <
-&trans  &trans  &none  &kp F7  &kp F8  &kp F9  &kp F10        &kp C_VOL_UP       &kp HOME  &kp PSCRN  &kp PG_UP  &kp SLCK         &kp CAPS           &kp RIGHT_COMMAND
-        &trans  &none  &kp F4  &kp F5  &kp F6  &kp F11        &kp C_MUTE         &kp LEFT  &kp UP     &kp RIGHT  &kp INS          &kp RIGHT_ALT
-        &trans  &none  &kp F1  &kp F2  &kp F3  &kp F12        &kp C_VOL_DN       &kp END   &kp DOWN   &kp PG_DN  &kp PAUSE_BREAK  &kp RIGHT_CONTROL
-                               &trans  &trans  &lt ADJ RET    &lt ADJ BACKSPACE  &trans    &trans
+&trans  &trans  &none         &kp F7           &kp F8               &kp F9             &kp F10      &kp C_VOL_UP     &kp HOME                    &kp PSCRN                   &kp PG_UP           &kp SLCK           &none  &none
+        &trans  &kp LEFT_GUI  &mt LEFT_ALT F4  &mt LEFT_CONTROL F5  &mt LEFT_SHIFT F6  &kp F11      &kp C_MUTE       &mt RIGHT_SHIFT LEFT_ARROW  &mt RIGHT_CONTROL UP_ARROW  &mt LEFT_ALT RIGHT  &mt RIGHT_GUI INS  &none
+        &trans  &none         &kp F1           &kp F2               &kp F3             &kp F12      &kp C_VOL_DN     &kp END                     &kp DOWN                    &kp PG_DN           &kp PAUSE_BREAK    &none
+                                               &trans               &trans             &lt 4 RET    &lt 4 BACKSPACE  &trans                      &trans
             >;
         };
 
         adjust_layer {
             bindings = <
-&sys_reset  &bootloader  &none         &none         &none         &none         &none           &snagit  &moom_left       &moom_shrink       &moom_right       &none  &bootloader  &sys_reset
-            &bt BT_CLR   &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4    &moom    &moom_left_half  &moom_top_half     &moom_right_half  &none  &none
-            &none        &none         &none         &none         &none         &none           &none    &none            &moom_bottom_half  &none             &none  &none
-                                                     &trans        &none         &trans          &trans   &none            &trans
+&none  &none  &none  &kp LG(F7)  &kp LG(F9)  &kp LG(F8)  &kp LC(LS(C))    &kp C_PREV   &none  &none   &none  &none  &none  &none
+       &none  &none  &none       &kp LG(F6)  &none       &none            &kp C_PAUSE  &none  &none   &none  &none  &none
+       &none  &none  &none       &none       &none       &none            &kp C_NEXT   &none  &none   &none  &none  &none
+                                 &trans      &none       &trans           &trans       &none  &trans
+            >;
+        };
+
+        system {
+            bindings = <
+&none  &sys_reset   &none         &none         &none         &none         &none           &none         &none         &none         &none         &none         &sys_reset   &none
+       &bt BT_CLR   &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4    &bt BT_SEL 4  &bt BT_SEL 3  &bt BT_SEL 2  &bt BT_SEL 1  &bt BT_SEL 0  &bt BT_CLR
+       &bootloader  &none         &none         &none         &none         &none           &none         &none         &none         &none         &none         &bootloader
+                                                &none         &none         &none           &none         &none         &none
             >;
         };
     };
